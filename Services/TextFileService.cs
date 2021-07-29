@@ -14,7 +14,7 @@ namespace RazorToDoList.Services
         {
             if (!System.IO.File.Exists(DATA_URL))
             {
-                System.IO.File.WriteAllText(DATA_URL, "[]");
+                System.IO.File.WriteAllText(DATA_URL, "[]"); 
             }
 
             List<TodoModel> items = new();
