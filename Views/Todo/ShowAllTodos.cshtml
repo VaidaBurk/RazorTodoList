@@ -1,0 +1,67 @@
+﻿@model List<TodoModel>
+
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Description</th>
+            <th scope="col">Done</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model != null)
+        {
+            @foreach (TodoModel todoModel in @Model)
+            {
+                <tr>
+                    <td>@todoModel.Name</td>
+                    <td>@todoModel.Description</td>
+                    <td>
+                        <input class="checkbox" type="checkbox" id="@todoModel.Id" value="@todoModel.IsFinished" />
+                        @*@Html.CheckBox(todoModel.Id, todoModel.IsFinished)*@
+                    </td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td></td>
+                <td></td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+@section Scripts
+{
+    <script>
+
+        var checkboxes = document.querySelectorAll("input[type=checkbox]");
+
+        checkboxes.forEach(function (checkbox) {
+            checkbox.addEventListener('change', function () {
+                console.log(this);
+                FinishTodo(this.id);
+            });
+        });
+
+
+        function FinishTodo(id) {
+            $.ajax({
+                url: '/Todo/FinishTodo',
+                data: {
+                    id: id,
+                    value: false
+                }
+            }).done(function () {  
+            });
+        }
+
+    </script>
+}
+
+
